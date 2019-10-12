@@ -10,7 +10,7 @@
             participar activamente en las áreas relacionadas a STEM(Ciencia,
             Tecnología, Ingeniería, Arte y Matemáticas).
             </p>
-          <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
+          <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Más Información</a>
         </div>
       </div>
     </div>
