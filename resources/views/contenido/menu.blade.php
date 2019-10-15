@@ -6,14 +6,12 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive" >
         <ul class="navbar-nav ml-auto my-2 my-lg-0">
+
           <li class="nav-item">
-            <a style="color: #FEFEFE;" class="nav-link js-scroll-trigger" href="#about">Nosotros</a>
+            <a style="color: #FEFEFE;" class="nav-link js-scroll-trigger" href="services">Servicios</a>
           </li>
           <li class="nav-item">
-            <a style="color: #FEFEFE;" class="nav-link js-scroll-trigger" href="#services">Servicios</a>
-          </li>
-          <li class="nav-item">
-            <a style="color: #FEFEFE;" class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
+            <a style="color: #FEFEFE;" class="nav-link js-scroll-trigger" href="actividades">Actividades</a>
           </li>
           <li class="nav-item"style="color: #FEFEFE;">
             <a style="color: #FEFEFE;"class="nav-link js-scroll-trigger " href="#contact">Contacto</a>

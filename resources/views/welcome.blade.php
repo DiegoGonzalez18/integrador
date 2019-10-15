@@ -7,10 +7,7 @@
 @include('contenido.header')
 
   <!-- About Section -->
-@include('contenido.about')
 
-  <!-- Services Section -->
-  @include('contenido.services')
 
   <!-- Portfolio Section -->
 @include('contenido.portafolio')
