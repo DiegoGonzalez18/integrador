@@ -1,5 +1,6 @@
-<template>
-   <main class="main">
+
+<template >
+   <main class="main ">
     <!-- Breadcrumb -->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">Home</li>
@@ -10,7 +11,7 @@
         <!-- Ejemplo de tabla Listado -->
         <div class="card">
             <div class="card-header">
-                <i class="fa fa-align-justify"></i> Sliders
+                <i class="fa fa-align-justify"></i> Asignar Archivo
                 <button @click="abrirModal('slider','registrar')" type="button" class="btn btn-secondary" >
                     <i class="icon-plus"></i>&nbsp;Nuevo
                 </button>
@@ -29,24 +30,32 @@
                     <thead>
                         <tr>
                             <th>Opciones</th>
-                            <th>Titulo</th>
-                            <th>Imagen</th>
+                            <th>Titulo del Servicio</th>
+                            <th>Nombre del Archivo</th>
+
+
+
 
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="slider in arraySlider" :key="slider.id" >
                              <td>
-                                <button @click="abrirModal('slider','actualizar',slider)" type="button" class="btn btn-warning btn-sm" >
-                                  <i class="icon-pencil"></i>
-                                </button> &nbsp;
+
                                 <button @click="eliminarSlider(slider.id)" type="button" class="btn btn-danger btn-sm" >
                                   <i class="icon-trash"></i>
                                 </button>
                             </td>
-                            <td v-text="slider.titulo"></td>
-                            <td ><img class="imagensita" :src="slider.url" alt=""></td>
+                            <td v-text="slider.titulos"></td>
+                             <td >
+                                 <a href="#" v-text="slider.nombre"></a>
+                             </td>
 
+
+                            <td>
+
+
+                            </td>
                         </tr>
 
                     </tbody>
@@ -72,34 +81,46 @@
     <!--Inicio del modal agregar/actualizar-->
     <div class="modal fade"  tabindex="-1" :class="{'mostrar':modal}" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-primary modal-lg" role="document">
-            <div class="modal-content" id="slider">
+            <div class="modal-content n">
                 <div class="modal-header">
                     <h4 class="modal-title" v-text="tituloModal"></h4>
                     <button type="button" class="close" @click="cerrarModal()" aria-label="Close">
                       <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body boxContenedor">
                     <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-                        <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">Titulo</label>
-                            <div class="col-md-9">
-                                <input type="text" v-model="titulo" class="form-control" placeholder="Titulo del Slider" >
-                                <span class="help-block">(*) Ingrese el titulo del slider</span>
-                            </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="file-input" required >Imagen</label>
+                        <div  class="form-group row" v-if="tramites!=null">
+                            <label class="col-md-3 form-control-label" for="text-input">Imagenes</label>
                             <div class="col-md-9">
-                                <input type="file"  required
-                                @change="imageChanged"
-                                class="form-control">
+                        <select class="custom-select" v-model="tramite" >
+
+                                    <option v-for="slider in tramites" :key="slider.id" :value="slider.id"  v-text="slider.titulos"></option>
+
+
+                        </select>
                             </div>
-                        </div>
-                        <div>
-                            <img v-if="boton==2" :src="imagen"  class="imagensita" alt="">
-                        </div>
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <div  class="form-group row" v-if="archivos!=null">
+                            <label class="col-md-3 form-control-label" for="text-input">Archivos</label>
+                            <div class="col-md-9">
+                        <select class="custom-select" v-model="archivo" >
+
+                                    <option v-for="slider in archivos" :key="slider.id" :value="slider.id"  v-text="slider.nombre"></option>
+
+
+                        </select>
+                            </div>
+                            </div>
+
+
+
+
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -116,7 +137,7 @@
     <!-- Inicio del modal Eliminar -->
     <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-danger" role="document">
-            <div class="modal-content slider" >
+            <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Eliminar Categoría</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -141,15 +162,27 @@
 </template>
 
 <script>
+
 const axios= require('axios');
+import { VueEditor } from "vue2-editor";
     export default {
+        components: { VueEditor },
+
        data(){
            return{
+               content: "<h1>Some initial content</h1>",
+               categorias:[],
+               tramites:[],
+               tramite:'Elije uno',
+               archivos:[],
+               archivo:[],
+               categoria:'',
                titulo : '',
                url :'',
-               visible: 0,
-               auxvis:0,
+               fecha:'',
+               descripcion:'',
                arraySlider: [],
+                arraySlider2: [],
                modal:0,
                tituloModal:'',
                boton:0,
@@ -165,7 +198,8 @@ const axios= require('axios');
                 'last_page':0,
                 'from' :0,
                 'to':0,
-               }
+               },
+               lugar:''
            }
        }, computed:{
             isActivated : function(){
@@ -192,15 +226,16 @@ const axios= require('axios');
             }
        },
        methods:{
+
            listarSlider(page,buscar){
-               var url="admin/slider?page="+page + "&buscar="+buscar;
+               var url="a_s2?page="+page + "&buscar="+buscar;
 
             let me= this;
                axios.get(url)
                 .then(function (response) {
                     var respuesta= response.data;
-                     me.arraySlider= respuesta.sliders.data;
-                     me.pagination= respuesta.pagination;
+                     me.arraySlider= respuesta.data;
+                     me.pagination= respuesta;
     // handle success
                 console.log(response);
                  })
@@ -210,6 +245,7 @@ const axios= require('axios');
                 })
             },
              eliminarSlider(idi){
+                 console.log(idi);
     let me = this;
 
                 swal.fire({
@@ -222,14 +258,14 @@ const axios= require('axios');
   confirmButtonText: 'si, Borralo!'
 }).then((result) => {
   if (result.value) {
-      axios.post('admin/slider/deletedSlider',{
+      axios.post('eli2',{
 
                     'id':idi
                 }).then(function(response){
                         console.log(response.data);
                           swal.fire(
       'Borrado!',
-      'Tu slider ha sido borrado.',
+      'Has borrado la asignacion de este archivo.',
       'success'
     );
 
@@ -249,71 +285,96 @@ const axios= require('axios');
                 me.listarSlider(page,buscar);
              }
 
-            ,imageChanged(e){
-
-                                var filereader= new FileReader();
-                                filereader.readAsDataURL(e.target.files[0]);
-                                filereader.onload = (e)=>{
-                                        this.image= filereader.result;
-                                };
-
-                                const files = e.target.files;
-
-                                this.image=files;
-            }
-        ,registrarSlider(){
+            ,registrarSlider(){
 
                                     let me = this;
-                                if(this.titulo==''){
 
-                                }else if(this.image==''){
-                                swal.fire('Falta ingresar la imagen','','error');
+   console.log(this.tramite);//s=a  t=i
+                                axios.post('a_s',{
 
-                                }else{
-                                axios.post('admin/slider/registerSlider',{
-                                    'algo':this.image,
-                                    'titulo':this.titulo
+
+                                    'id2': this.tramite,
+                                    'id1': this.archivo,
+
                                 }).then(function(response){
-                                    if(response.data==-1){
-                                        swal.fire('revise el tamaño de la imagen debe ser de ancho 1500 y alto 500','','error');
-                                    }else {
-                                     swal.fire('slider registrado','','success');
-                                    me.listarSlider(1,'');
+                                        console.log(response.data);
+                                    if(response.data!=1){
+                                        swal.fire('Ya asigno este archivo a este servicio','','error');
+
+                                    }
+                                    else{
+                                          swal.fire('Archivo Asignado','','success');
+                                           me.listarSlider(1,'');
                                     me.cerrarModal();
                                     }
+
+
+
                                     }).catch(function(error){
                                         console.log(error);
                                     });
-                            }
+
         }, actualizarSlider(){
             let me =this;
-            if(this.titulo==''){
-                            swal.fire('Falta ingresar el titulo','','error');
-            }else{
-                axios.post('admin/slider/updateSlider',{
-                    'algo':this.image,
-                    'titulo': this.titulo,
+
+                axios.post('admin/tramite/updatedTramite',{
+
+                                    'titulo':this.titulo,
+                                     'categoria': this.categoria,
+
+
+                                    'contenido':this.content,
                     'id':this.id,
 
                 }).then(function(response){
                         console.log(response.data)
-
-                         if(response.data==-2){
-                                        swal.fire('revise el tamaño de la imagen debe ser de ancho 1500 y alto 500','','error');
-                                    }else  if(response.data==-5){
-                                        swal.fire('Ya hay 5 Sliders activos','','error');
-                                    }else{
-                         swal.fire('slider Actualizado','','success');
+                         swal.fire('Actualizadi','','success');
                                     me.listarSlider(1,'');
-                                    me.cerrarModal();}
+                                    me.cerrarModal();
                 }).catch(function(error){
                     console.log(error);
                 })
-            }
 
 
+        }, listarCategorias(){
+             let me=this;
+ axios.post('admin/tramite/Categorias').then(function(response){
+
+ me.categorias=response.data;
+
+
+                }).catch(function(error){
+                    console.log(error);
+                })
+        },
+         listarTramites(){
+               let me=this;
+ axios.post('ser').then(function(response){
+console.log("aqui")
+me.tramites=response.data;
+console.log(response);
+
+
+                }).catch(function(error){
+                    console.log(error);
+                })
+        },
+        listarArchivos(){
+              let me=this;
+ axios.post('admin/archivo_tramite/archivos').then(function(response){
+console.log("aqui")
+me.archivos=response.data;
+console.log(response);
+
+
+                }).catch(function(error){
+                    console.log(error);
+                })
         },
         abrirModal(modelo,accion,data=[]){
+              this.listarCategorias();
+              this.listarTramites();
+              this.listarArchivos();
                             switch(modelo){
                                 case "slider":
                                     {
@@ -321,21 +382,24 @@ const axios= require('axios');
                                             case 'registrar':
                                                 {
                                                     this.modal=1;
-                                                    this.tituloModal='Registrar Slider';
+                                                    this.tituloModal='Asignar Archivo';
                                                     this.titulo='';
                                                     this.url='';
                                                     this.boton=1;
+
                                                     break;
                                                 }
                                             case 'actualizar':
                                                 {
                                                     this.modal=1;
-                                                    this.tituloModal='Actualizar slider';
+                                                    this.tituloModal='Asignar Archivo';
                                                     this.boton=2;
-                                                    this.titulo= data['titulo'];
-                                                    this.imagen=data['url'];
+
+                                                    this.content=data['description'];
+                                                    this.titulo=data['titulo'];
+                                                    this.categoria=data['categoria_id'];
                                                     this.id=data['id'];
-                                                   // this.auxvis=data["visibilidad"]
+
                                                     break;
                                                 }
 
@@ -350,7 +414,6 @@ const axios= require('axios');
                             this.url='';
         }
 
-
         },
 
         mounted(){
@@ -359,6 +422,8 @@ const axios= require('axios');
             this.abrirModal();
             this.imageChanged();
             actualizarSlider();
+              this.listarCategorias();
+              this.listarTramites();
         }
     }
 </script>
@@ -378,10 +443,13 @@ const axios= require('axios');
     height: 150px;
     text-align: center;
 }
-#slider{
-     height: 500px;
+.boxContenedor {
+
+ width : 800px;
+            height : 430px;
+            overflow : auto;
 }
-#usuario{
-    height: 350px !important;
+.n{
+     height: 500px;
 }
 </style>

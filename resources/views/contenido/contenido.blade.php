@@ -55,5 +55,14 @@
          <template v-if="menu==100">
             <servicio></servicio>
          </template>
+         <template v-if="menu==101">
+            <a-servicio></a-servicio>
+         </template>
+         <template v-if="menu==102">
+            <imagen></imagen>
+         </template>
+         <template v-if="menu==103">
+            <archivo_servicio></archivo_servicio>
+         </template>
 
 @endsection

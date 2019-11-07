@@ -18,6 +18,15 @@
                     <li  @click="menu=100" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-bag"></i>Servicios</a>
                     </li>
+                    <li  @click="menu=101" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-bag"></i>Actualizar Servicios</a>
+                    </li>
+                    <li  @click="menu=102" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-bag"></i>Asignar Imagen</a>
+                    </li>
+                     <li  @click="menu=103" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-bag"></i>Asignar Archivo</a>
+                    </li>
 
                 </ul>
             </li>

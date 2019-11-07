@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSlidersTable extends Migration
+class CreateArchivoServicioTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateSlidersTable extends Migration
      */
     public function up()
     {
-        Schema::create('sliders', function (Blueprint $table) {
+        Schema::create('archivo_servicio', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('titulo',100);
-            $table->string('url',800);
-            //$table->boolean('visibilidad')->default(0);
+            $table->bigInteger('archivo_id')->unsigned();
+            $table->bigInteger('servicio_id')->unsigned();
+            $table->foreign('archivo_id')->references('id')->on('archivos');
+            $table->foreign('servicio_id')->references('id')->on('servicios');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateSlidersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sliders');
+        Schema::dropIfExists('archivo_servicio');
     }
 }

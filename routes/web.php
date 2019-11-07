@@ -81,6 +81,20 @@ Route::get('/admin/mensaje','MensajeController@index');
 Route::get('/admin/mensaje2','MensajeController@index2');
 Route::post('/admin/correo','MensajeController@responder');
 Route::post('/admin/servicio/registrarServicio','ServicioController@store');
+Route::post('/admin/servicio/actualizarServicio','ServicioController@actualizar');
+Route::post('/admin/servicio/eliminarServicio','ServicioController@eliminar');
+
+Route::post('/servicio','ServicioController@servicios');
+Route::post('/servicioinfo','ServicioController@servicio');
+Route::post('/sli','SliderController@slider');
+Route::post('/ser','ServicioController@ser');
+Route::post('/registera_t','ServicioController@registrar');
+Route::get('/asignar','ServicioController@index');
+Route::post('/eli','ServicioController@destroy');
+Route::post('/a_s','ServicioController@registrarA');
+Route::post('/eli2','ServicioController@destroy2');
+Route::get('/a_s2','ServicioController@index2');
+
 
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/home', 'HomeController@index')->name('home');

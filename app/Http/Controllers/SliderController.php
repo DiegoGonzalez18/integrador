@@ -112,18 +112,8 @@ $extension="jpg";
             $slider=Slider::where('id', '=', $request->id)->first();
 
             $slider->titulo=$request->titulo;
-            $slider->visibilidad=$request->visible;
 
-            $numero = Slider::where('visibilidad', '=', 1)->count();
-            if($slider->visibilidad==1){
-                $numero=$numero-1;
-            }
-            if($numero >4 && $request->visible==1){
-                return -5;
-            }else{
-                $slider->visibilidad=$request->visible;
 
-            }
           if($request->algo!=''){
               //elimino imagen antigua
               $mi_imagen = public_path().'/'.$slider->url;
@@ -210,7 +200,7 @@ $extension="jpg";
 
     }
     public function slider(){
-       $sliders=  Slider::where('visibilidad', '=', 1)->paginate(4);
-       return $sliders->toArray();
+       $sliders=Slider::get()->toArray();
+       return $sliders;
     }
 }

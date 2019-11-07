@@ -35,6 +35,10 @@ Vue.component('archivo_tramite', require('./components/archivo_tramite.vue').def
 Vue.component('mensaje', require('./components/mensaje.vue').default);
 Vue.component('respuesta', require('./components/Respuestas.vue').default);
 Vue.component('servicio', require('./components/Servicio.vue').default);
+Vue.component('a-servicio', require('./components/ActualizarServicio.vue').default);
+Vue.component('imagen', require('./components/imagen_servicio.vue').default);
+Vue.component('archivo_servicio', require('./components/archivo_servicio.vue').default);
+
 
 //frontend
 
