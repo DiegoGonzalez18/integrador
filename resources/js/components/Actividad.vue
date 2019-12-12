@@ -7,7 +7,7 @@
     </ol>
          <div class="container-fluid">
              <div>
-                  <center>  <h1>Registrar Servicio</h1></center>
+                  <center>  <h1>Registrar Actividad</h1></center>
 
              </div>
              <br><br>
@@ -28,6 +28,20 @@
                             <div class="col-md-9">
                                 <input type="text" v-model="descripcion" class="form-control" placeholder="Descripcion " >
                                 <span class="help-block">(*) Ingrese la descripcion</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">Fecha</label>
+                            <div class="col-md-9">
+                                <input type="date" v-model="fecha" class="form-control" placeholder="" >
+                                <span class="help-block">(*) Ingrese la Fecha</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">Descripcion</label>
+                            <div class="col-md-9">
+                                <input type="text" v-model="lugar" class="form-control" placeholder="Lugar" >
+                                <span class="help-block">(*) Ingrese el Lugar</span>
                             </div>
                         </div>
                          <div class="form-group row">
@@ -82,7 +96,9 @@ import { VueEditor } from "vue2-editor";
             contenido_id:'',
             titulo:'',
             descripcion:'',
-            image:''
+            image:'',
+            fecha:'',
+            lugar:'',
 
            }
        },
@@ -90,7 +106,7 @@ import { VueEditor } from "vue2-editor";
 
             traercontenido(){
                 let me= this;
-                 axios.post('servicios'
+                 axios.post('actividades'
                  ).then(function(response){
                     me.array_contenido=response.data;
 
@@ -133,27 +149,25 @@ import { VueEditor } from "vue2-editor";
                                     let me = this;
                                 if(this.titulo==''){
 
-                                }else if(this.image==''){
+                                 }else if(this.image==''){
                                 swal.fire('Falta ingresar la imagen','','error');
 
                                 } if(this.descripcion=='')
                                 {
                                      swal.fire('Falta ingresar la descripcion','','error');
                                 }else{
-                                axios.post('admin/servicio/registrarServicio',{
+                                axios.post('admin/actividad/registrarActividad',{
                                     'algo':this.image,
                                     'titulo':this.titulo,
                                     'descripcion':this.descripcion,
-                                    'contenido':this.content
+                                    'contenido':this.content,
+                                    'lugar':this.lugar,
+                                    'fecha':this.fecha
                                 }).then(function(response){
-                                    console.log(response.data);
-                                    if(response.data==-1){
-                                        swal.fire('Revise el tamaño de la imagen debe ser de ancho 1500 y alto 500','','error');
-                                    }else if(response.data==-5){
-                                        swal.fire('Revise el tamaño de la imagen debe ser entre un acho mayor a 150 y menor  a 400 y un alto mayor 250 y menor a 400','','error');
-
+                                    if(response.data==-5){
+                                        swal.fire('revise el tamaño de la imagen debe ser de ancho 650 y alto 350','','error');
                                     }else {
-                                     swal.fire('Servicio Registrado','','success');
+                                     swal.fire('Actividad Registrada','','success');
                                     me.listarSlider(1,'');
                                     me.cerrarModal();
                                     }
@@ -171,11 +185,7 @@ import { VueEditor } from "vue2-editor";
                  'contenido':me.content}
                  ).then(function(response){
                  //   location.reload();
-                  if(response.data==-5){
-                                        swal.fire('Revise el tamaño de la imagen debe ser entre un acho mayor a 150 y menor  a 400 y un alto mayor 250 y menor a 400','','error');
-
-                                    }else{
-                   swal.fire('Contenido Actualizado','','success');}
+                   swal.fire('Contenido Actualizado','','success');
                             me.traercontenido();
 
 

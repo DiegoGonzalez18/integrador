@@ -15,6 +15,7 @@ class MensajeController extends Controller
          $correo=$request->correo;
          $telefono=$request->telefono;
          $mensaje=$request->mensaje;
+         
          try {
 
             $m=  new Mensaje();
@@ -22,6 +23,7 @@ class MensajeController extends Controller
             $m->correo=$correo;
             $m->telefono=$telefono;
             $m->mensaje=$mensaje;
+            $m->respuesta='Sin responder';
             $m->save();
             return 1;
         } catch (Exception $e) {

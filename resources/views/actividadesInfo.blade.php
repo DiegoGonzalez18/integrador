@@ -21,9 +21,9 @@
   <link href="../magnific-popup/magnific-popup.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
   <!-- Theme CSS - Includes Bootstrap -->
-  <link href="../css/creative.css" rel="stylesheet">     
+  <link href="../css/creative.css" rel="stylesheet">
      <meta name="csrf-token" content="{{ csrf_token() }}" />
- 
+
 
 </head>
 
@@ -180,29 +180,29 @@
                        // @csrf
                     <fieldset>
                         <legend class="text-center header">Aclaramos tus dudas</legend>
-            
+
                         <div class="form-group">
                             <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
                             <div class="col-md-8">
                                 <input id="nombre" name="name" type="text" placeholder="Nombre" class="form-control">
                             </div>
                         </div>
-            
-            
+
+
                         <div class="form-group">
                             <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-envelope bigicon"></i></span>
                             <div class="col-md-8">
                                 <input id="correo" name="email" type="text" placeholder="Correo" class="form-control">
                             </div>
                         </div>
-            
+
                         <div class="form-group">
                             <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-phone-square bigicon"></i></span>
                             <div class="col-md-8">
                                 <input id="telefono" name="phone" type="text" placeholder="Teléfono" class="form-control">
                             </div>
                         </div>
-            
+
                         <div class="form-group">
                             <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-pencil-square-o bigicon"></i></span>
                             <div class="col-md-8">
@@ -210,7 +210,7 @@
                                  placeholder="Ingresa tu mensaje." rows="7"></textarea>
                             </div>
                         </div>
-            
+
                         <div class="form-group">
                             <div class="col-md-12 text-center">
                                 <button type="submit" id="formulario" class="btn btn-primary btn-lg">Enviar</button>
@@ -249,70 +249,70 @@
 
 
         $.ajaxSetup({
-    
+
             headers: {
-    
+
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    
+
             }
-    
+
         });
-    
-    
-    
+
+
+
         $("#formulario").click(function(e){
-    
+
             $.ajaxSetup({
-    
+
                 headers: {
-    
+
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    
+
                 }
-    
+
             });
-    
+
             e.preventDefault();
-    
-    
-    
+
+
+
             var nombre= $("#nombre").val();
-    
+
             var correo = $("#correo").val();
-    
+
             var telefono = $("#telefono").val();
             var mensaje = $("#mensaje").val();
-    
-    
-    
+
+
+
             $.ajax({
-    
+
                type:'POST',
-    
+
                url:'../mensaje',
-    
+
                data:{'nombre':nombre, 'correo':correo, 'telefono':telefono,'mensaje':mensaje},
-    
+
                success:function(data){
                    if(data==1){
-    
+
     Swal.fire('Mensaje enviado. Te enviamos respuesta al correo')
-    
+
                    }else{
     Swal.fire('Error')
-    
+
                    }
-    
+
                }
-    
+
             });
-    
-    
-    
+
+
+
         });
-    
+
     </script>
-    
+
     </body>
 
     </html>

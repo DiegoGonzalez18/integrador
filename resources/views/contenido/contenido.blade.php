@@ -64,5 +64,17 @@
          <template v-if="menu==103">
             <archivo_servicio></archivo_servicio>
          </template>
+         <template v-if="menu==200">
+            <actividad></actividad>
+        </template>
+        <template v-if="menu==201">
+            <a-actividad></a-actividad>
+        </template>
+        <template v-if="menu==202">
+            <a-imagen></a-imagen>
+        </template>
+        <template v-if="menu==203">
+            <ar-imagen></a-imagen>
+        </template>
 
 @endsection

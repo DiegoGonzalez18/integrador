@@ -38,6 +38,10 @@ Vue.component('servicio', require('./components/Servicio.vue').default);
 Vue.component('a-servicio', require('./components/ActualizarServicio.vue').default);
 Vue.component('imagen', require('./components/imagen_servicio.vue').default);
 Vue.component('archivo_servicio', require('./components/archivo_servicio.vue').default);
+Vue.component('actividad', require('./components/Actividad.vue').default);
+Vue.component('a-actividad', require('./components/ActualizarActividad.vue').default);
+Vue.component('a-imagen', require('./components/ImagenActividad.vue').default);
+Vue.component('ar-imagen', require('./components/ArchivoActividad.vue').default);
 
 
 //frontend

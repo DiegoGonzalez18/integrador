@@ -8,7 +8,11 @@ class Servicio extends Model
 {
 
     public function  sliders(){
-        return $this->belongsToMany(Tramite::class,'imagen_servicio','servicio_id','imagen_id');
+        return $this->belongsToMany(Slider::class,'imagen_servicio','servicio_id','imagen_id');
     }
+    public function  archivos(){
+        return $this->belongsToMany(Archivo::class,'archivo_servicio','servicio_id','archivo_id');
+    }
+
 
 }

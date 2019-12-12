@@ -26,6 +26,11 @@ class ServicioController extends Controller
   $ancho = $imagen[0];              //Ancho
   $alto = $imagen[1];
 
+  if(($ancho > 399 && $alto>399) ||($alto < 149 && $ancho < 149)){
+
+    return -5;
+  } else{
+
        $extension="";
             if(Str::contains($exploded[0],'jpeg')){
 $extension="jpg";
@@ -50,7 +55,7 @@ $extension="jpg";
           }
 
 
-        }
+        }}
         public function servicios(){
             $hola= Servicio::get();
             return $hola->toArray();
@@ -62,10 +67,16 @@ $extension="jpg";
         public function actualizar(Request $request)
         {
             if($request->algo!=''){
+
             $imagen = getimagesize($request->algo);
-            $ancho = $imagen[0];              //Ancho
-            $alto = $imagen[1];
-    echo "aca entro";
+  $ancho = $imagen[0];              //Ancho
+  $alto = $imagen[1];
+
+  if(($ancho > 399 && $alto>399) ||($alto < 149 && $ancho < 149)){
+
+    return -5;
+  }
+
 
 
         }
@@ -248,6 +259,30 @@ return $data;
         $slider->delete();
         return 1;
     }
+    public function services(){
+        $s=$this->allServices();
+        $c=count($s);
+        return view('services',compact('s','c'));
+    }
+    public function allServices(){
+        $s=Servicio::get()->toArray();
+        return $s;
+    }
 
-
+public function servicioes(Request $request){
+$s=Servicio::where("id",'=',$request->id)->first();
+$i=$this->s($request->id);
+$c=count($i);
+$ar=$this->a($request->id);
+$x=count($ar);
+return view('servicioInfo',compact("s",'i','c','ar','x'));
+}
+public function s($id){
+    $r=Servicio::findOrFail($id);
+    return $r->sliders->toArray();
+}
+public function a($id){
+    $r=Servicio::findOrFail($id);
+    return $r->archivos->toArray();
+}
 }

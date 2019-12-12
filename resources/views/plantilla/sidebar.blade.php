@@ -4,10 +4,10 @@
 
 
             <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-bag"></i>Slider Principal</a>
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-bag"></i>Imagenes</a>
                 <ul class="nav-dropdown-items">
                     <li  @click="menu=1" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-bag"></i>Slider</a>
+                        <a class="nav-link" href="#"><i class="icon-bag"></i>Imagen</a>
                     </li>
 
                 </ul>
@@ -31,51 +31,38 @@
                 </ul>
             </li>
             <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-bag"></i>Actividades</a>
+                <ul class="nav-dropdown-items">
+                    <li  @click="menu=200" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-bag"></i>Actividades</a>
+                    </li>
+                    <li  @click="menu=201" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-bag"></i>Actualizar Actividades</a>
+                    </li>
+                    <li  @click="menu=202" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-bag"></i>Asignar Imagen</a>
+                    </li>
+                     <li  @click="menu=203" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-bag"></i>Asignar Archivo</a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i>Usuarios</a>
                 <ul class="nav-dropdown-items">
                     <li  @click="menu=2" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-wallet"></i> Usuarios</a>
                     </li>
-
-                </ul>
-            </li>
-            <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-basket"></i> Eventos</a>
-                <ul class="nav-dropdown-items">
-                    <li @click="menu=5" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-basket-loaded"></i> Eventos</a>
-                    </li>
-
-                </ul>
-            </li>
-            <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-people"></i>Novedad</a>
-                <ul class="nav-dropdown-items">
-                    <li @click="menu=7" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-user"></i> Novedad</a>
+                    <li  @click="menu=10" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-wallet"></i>Archivos</a>
                     </li>
 
                 </ul>
             </li>
 
-            <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-pie-chart"></i> Trámites</a>
-                <ul class="nav-dropdown-items">
-                        <li @click="menu=20" class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-chart"></i>Trámites</a>
-                            </li>
-                    <li @click="menu=9" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-chart"></i>Categoría</a>
-                    </li>
-                    <li @click="menu=10" class="nav-item">
-                            <a class="nav-link" href="#"><i class="icon-chart"></i>Archivo</a>
-                        </li>
-                        <li @click="menu=21" class="nav-item">
-                            <a class="nav-link" href="#"><i class="icon-chart"></i>Asignar Archivos</a>
-                        </li>
 
-                </ul>
-            </li>
+
             <li @click="menu=11" class="nav-item">
                 <a class="nav-link" href="#"><i class="icon-book-open"></i> Mensajes <span class="badge badge-danger">
                         {{session('mensajes')}}</span></a>

@@ -3,23 +3,23 @@
 @section('login')
 <style>
     .card.bg-primary {
-        border-color:rgb(128, 0, 23);;
-        border-top-color:rgb(128, 0, 23);
-        border-right-color: rgb(128, 0, 23);;
-        border-bottom-color: rgb(128, 0, 23);
-        border-left-color: rgb(128, 0, 23);
+        border-color:rgba(197, 0, 131,1);
+        border-top-color:rgba(197, 0, 131,1);
+        border-right-color: rgba(197, 0, 131,1);
+        border-bottom-color: rgba(197, 0, 131,1);
+        border-left-color: rgba(197, 0, 131,1);
     }
     .bg-primary {
-        background-color:rgb(128, 0, 23) !important;
+        background-color:rgba(197, 0, 131,1) !important;
     }
     .btn-primary {
         color: #fff;
-        background-color: rgba(128, 0, 23,0.7);
-        border-color:rgba(128, 0, 23,0.2);
+        background-color: rgba(197, 0, 131,1);
+        border-color:rgba(197, 0, 131,1);
     }
     a {
         color: #fff;
-        background-color: rgba(128, 0, 23,0.3) !important;
+        background-color:rgba(197, 0, 131,1) !important;
         border-color:#fff;
     }
 </style>
@@ -53,8 +53,7 @@
           <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
             <div class="card-body text-center">
               <div>
-                <h2>Secretaria General</h2>
-                <p>Sistema de gestión de la página principal de la Secretaría General.</p>
+                <h2>Mujeres CTIAM</h2>
                 <a href="/" target="_blank" class="btn btn-primary  mt-3">Ve a la Página</a>
               </div>
             </div>

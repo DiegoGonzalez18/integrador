@@ -11,7 +11,7 @@
         <!-- Ejemplo de tabla Listado -->
         <div class="card">
             <div class="card-header">
-                <i class="fa fa-align-justify"></i> Asignar Imagen
+                <i class="fa fa-align-justify"></i> Asignar Archivo
                 <button @click="abrirModal('slider','registrar')" type="button" class="btn btn-secondary" >
                     <i class="icon-plus"></i>&nbsp;Nuevo
                 </button>
@@ -31,7 +31,7 @@
                         <tr>
                             <th>Opciones</th>
                             <th>Titulo del Servicio</th>
-                            <th>Titulo de la Imagen</th>
+                            <th>Nombre del Archivo</th>
 
 
 
@@ -48,7 +48,7 @@
                             </td>
                             <td v-text="slider.titulos"></td>
                              <td >
-                                 <a href="#" v-text="slider.titulo"></a>
+                                 <a href="#" v-text="slider.nombre"></a>
                              </td>
 
 
@@ -96,7 +96,7 @@
                             <div class="col-md-9">
                         <select class="custom-select" v-model="tramite" >
 
-                                    <option v-for="slider in tramites" :key="slider.id" :value="slider.id"  v-text="slider.titulo"></option>
+                                    <option v-for="slider in tramites" :key="slider.id" :value="slider.id"  v-text="slider.titulos"></option>
 
 
                         </select>
@@ -106,12 +106,12 @@
                             <br>
                             <br>
                             <br>
-                             <div  class="form-group row" v-if="archivos!=null">
-                            <label class="col-md-3 form-control-label" for="text-input">Servicios</label>
+                            <div  class="form-group row" v-if="archivos!=null">
+                            <label class="col-md-3 form-control-label" for="text-input">Archivos</label>
                             <div class="col-md-9">
                         <select class="custom-select" v-model="archivo" >
 
-                                    <option v-for="slider in archivos" :key="slider.id" :value="slider.id"  v-text="slider.titulos"></option>
+                                    <option v-for="slider in archivos" :key="slider.id" :value="slider.id"  v-text="slider.nombre"></option>
 
 
                         </select>
@@ -228,7 +228,7 @@ import { VueEditor } from "vue2-editor";
        methods:{
 
            listarSlider(page,buscar){
-               var url="asignar?page="+page + "&buscar="+buscar;
+               var url="listadito?page="+page + "&buscar="+buscar;
 
             let me= this;
                axios.get(url)
@@ -258,14 +258,14 @@ import { VueEditor } from "vue2-editor";
   confirmButtonText: 'si, Borralo!'
 }).then((result) => {
   if (result.value) {
-      axios.post('eli',{
+      axios.post('destroy',{
 
                     'id':idi
                 }).then(function(response){
                         console.log(response.data);
                           swal.fire(
       'Borrado!',
-      'Has borrado la asignacion de esta imagen.',
+      'Has borrado la asignacion de este archivo.',
       'success'
     );
 
@@ -290,7 +290,7 @@ import { VueEditor } from "vue2-editor";
                                     let me = this;
 
    console.log(this.tramite);//s=a  t=i
-                                axios.post('registera_t',{
+                                axios.post('a_a',{
 
 
                                     'id2': this.tramite,
@@ -299,11 +299,11 @@ import { VueEditor } from "vue2-editor";
                                 }).then(function(response){
                                         console.log(response.data);
                                     if(response.data!=1){
-                                        swal.fire('Ya asigno esta Imagen a este Servicio','','error');
+                                        swal.fire('Ya asigno este archivo a esta Actividad','','error');
 
                                     }
                                     else{
-                                          swal.fire('Imagen Asignado','','success');
+                                          swal.fire('Archivo Asignado','','success');
                                            me.listarSlider(1,'');
                                     me.cerrarModal();
                                     }
@@ -348,11 +348,11 @@ import { VueEditor } from "vue2-editor";
                 })
         },
          listarTramites(){
-             let me=this;
- axios.post('sli').then(function(response){
-
+               let me=this;
+ axios.post('acti').then(function(response){
+console.log("aqui")
 me.tramites=response.data;
-
+console.log(response);
 
 
                 }).catch(function(error){
@@ -360,8 +360,8 @@ me.tramites=response.data;
                 })
         },
         listarArchivos(){
-             let me=this;
- axios.post('ser').then(function(response){
+              let me=this;
+ axios.post('admin/archivo_tramite/archivos').then(function(response){
 console.log("aqui")
 me.archivos=response.data;
 console.log(response);
@@ -382,7 +382,7 @@ console.log(response);
                                             case 'registrar':
                                                 {
                                                     this.modal=1;
-                                                    this.tituloModal='Asignar Imagen';
+                                                    this.tituloModal='Asignar Archivo';
                                                     this.titulo='';
                                                     this.url='';
                                                     this.boton=1;

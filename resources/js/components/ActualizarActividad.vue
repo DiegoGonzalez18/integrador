@@ -7,14 +7,51 @@
     </ol>
          <div class="container-fluid">
              <div>
-                  <center>  <h1>Registrar Servicio</h1></center>
+                  <center>  <h1>Actualizar Actividad</h1></center>
 
              </div>
              <br><br>
 
 <div class="container">
+        <div class="row" v-if="array_contenido.length!=0">
+                    <div class="col-2">
 
-                         <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                    </div>
+                    <div class="col-8" v-if="array_contenido.length!=0">
+                            <div  class="form-group row" >
+                            <label class="col-md-3 form-control-label" for="text-input">Contenido</label>
+                            <div class="col-md-3">
+                       <select class="custom-select" ref="seleccionado" >
+
+                                    <option v-for="contenido in array_contenido" :key="contenido.id" :value="contenido.id"  v-text="contenido.titulos"></option>
+
+
+                        </select>
+                            </div>
+                             <div class="col-md-3">
+
+
+                                <input type="submit"  @click="informacion()"  class="btn btn-primary" value="Actualizar Contenido">
+
+
+
+                            </div>
+                            <div class="col-md-2">
+
+
+                                <input type="submit"  @click="eliminar()"  class="btn btn-primary" value="Eliminar">
+
+
+
+                            </div>
+                            </div>
+                    </div>
+                    <div class="col-2">
+
+                    </div>
+
+             </div>
+                         <form  v-if="array_contenido.length!=0" action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="text-input">Titulo</label>
                             <div class="col-md-9">
@@ -30,6 +67,20 @@
                                 <span class="help-block">(*) Ingrese la descripcion</span>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">Fecha</label>
+                            <div class="col-md-9">
+                                <input type="date" v-model="fecha" class="form-control" placeholder="" >
+                                <span class="help-block">(*) Ingrese la Fecha</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">Descripcion</label>
+                            <div class="col-md-9">
+                                <input type="text" v-model="lugar" class="form-control" placeholder="Lugar" >
+                                <span class="help-block">(*) Ingrese el Lugar</span>
+                            </div>
+                        </div>
                          <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="file-input" required >Imagen</label>
                             <div class="col-md-9">
@@ -43,25 +94,41 @@
                     </form>
 
 
+ <div class="row">
+<div class="col-3">
+
+</div>
+
+<div class="col-6">
+<img v-if="url!=''" class="imagen" :src="url">
+</div>
+
+<div class="col-3">
+
+</div>
+ </div>
                      <div class="col-2">
 
                      </div>
                  </div>
 
- <div class="form-group row">
+ <div class="form-group row" v-if="array_contenido.length!=0">
 
                                     <vue-editor class="hola" :customModules="customModulesForEditor"  v-model="content"> </vue-editor>
 
 
                         </div>
                             <br><br>
-                            <div class="row">
+                            <div class="row" v-if="array_contenido.length!=0">
                                 <div class="col-4"></div>
                             <div class="col-4">
                                 <input type="submit" @click="registrarServicio()" class="btn btn-primary" value="Actualizar Contenido">
                             </div>
                             <div class="col-4"></div>
                             </div>
+                             <div v-if="array_contenido.length==0">
+               <h1>No hay Actividades</h1>
+         </div>
                             <br><br><br><br>
 
 
@@ -82,7 +149,10 @@ import { VueEditor } from "vue2-editor";
             contenido_id:'',
             titulo:'',
             descripcion:'',
-            image:''
+            image:'',
+            url:'',
+            fecha:'',
+            lugar:'',
 
            }
        },
@@ -90,7 +160,7 @@ import { VueEditor } from "vue2-editor";
 
             traercontenido(){
                 let me= this;
-                 axios.post('servicios'
+                 axios.post('actividades'
                  ).then(function(response){
                     me.array_contenido=response.data;
 
@@ -116,11 +186,16 @@ import { VueEditor } from "vue2-editor";
 
                let me= this;
                me.contenido_id=this.$refs.seleccionado.value;
-                 axios.post('c',{'id':me.contenido_id}
+                 axios.post('act',{'id':me.contenido_id}
                  ).then(function(response){
                      console.log(response);
-                    me.titulo=response.data['titulo'];
+                    me.titulo=response.data['titulos'];
+                    me.descripcion=response.data['descripcion'];
                     me.content=response.data['contenido'];
+                    me.url=response.data['destacada'];
+                    me.fecha=response.data['fecha'];
+                    me.lugar=response.data['lugar'];
+
 
 
                                     }).catch(function(error){
@@ -128,35 +203,77 @@ import { VueEditor } from "vue2-editor";
                                     });
 
             },
+            eliminar(){
+let me = this;
+ me.contenido_id = this.$refs.seleccionado.value;
+
+ swal.fire({
+  title: '¿Está seguro?',
+  text: "¿Quieres borrarlo?",
+  type: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'si, Borralo!'
+}).then((result) => {
+  if (result.value) {
+      axios.post('eliminarActividad',{
+
+                    'id':me.contenido_id
+                })
+                .then(function(response){
+
+
+                        console.log(response.data);
+                          swal.fire(
+      'Borrado!',
+      'Tu Actividad ha sido borrado.',
+      'success'
+    )
+   location.reload();
+    }).catch(function(error){
+                                            console.log(error);
+                                    });
+
+
+  }
+})
+
+
+
+
+
+            },
+
             registrarServicio(){
 
                                     let me = this;
                                 if(this.titulo==''){
 
-                                }else if(this.image==''){
-                                swal.fire('Falta ingresar la imagen','','error');
+                                }else
 
-                                } if(this.descripcion=='')
+
+                                 if(this.descripcion=='')
                                 {
                                      swal.fire('Falta ingresar la descripcion','','error');
                                 }else{
-                                axios.post('admin/servicio/registrarServicio',{
+                                axios.post('actualizarActividad',{
+                                    'id':this.contenido_id,
                                     'algo':this.image,
                                     'titulo':this.titulo,
                                     'descripcion':this.descripcion,
-                                    'contenido':this.content
-                                }).then(function(response){
-                                    console.log(response.data);
-                                    if(response.data==-1){
-                                        swal.fire('Revise el tamaño de la imagen debe ser de ancho 1500 y alto 500','','error');
-                                    }else if(response.data==-5){
-                                        swal.fire('Revise el tamaño de la imagen debe ser entre un acho mayor a 150 y menor  a 400 y un alto mayor 250 y menor a 400','','error');
+                                    'contenido':this.content,
+                                    'fecha':this.fecha,
+                                    'lugar':this.lugar,
 
+                                }).then(function(response){
+ if(response.data==-5){
+                                        swal.fire('revise el tamaño de la imagen debe ser de ancho 650 y alto 350','','error');
                                     }else {
-                                     swal.fire('Servicio Registrado','','success');
-                                    me.listarSlider(1,'');
-                                    me.cerrarModal();
-                                    }
+                                     swal.fire('Actividad actualizado','','success');
+                                      me.traercontenido();
+                                      me.informacion();}
+
                                     }).catch(function(error){
                                         console.log(error);
                                     });
@@ -171,11 +288,7 @@ import { VueEditor } from "vue2-editor";
                  'contenido':me.content}
                  ).then(function(response){
                  //   location.reload();
-                  if(response.data==-5){
-                                        swal.fire('Revise el tamaño de la imagen debe ser entre un acho mayor a 150 y menor  a 400 y un alto mayor 250 y menor a 400','','error');
-
-                                    }else{
-                   swal.fire('Contenido Actualizado','','success');}
+                   swal.fire('Contenido Actualizado','','success');
                             me.traercontenido();
 
 
@@ -204,6 +317,10 @@ this.traercontenido();
     width: 100% !important;
     position:absolute !important;
 
+}
+.imagen{
+    width: 400px;
+    height: 200px;
 }
 
 .modal-body{

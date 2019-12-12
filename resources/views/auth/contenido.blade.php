@@ -9,7 +9,7 @@
   <meta name="author" content="Incanatoit.com">
   <meta name="keyword" content="Secretaria Ge">
 
-  <title>Secretaria General</title>
+  <title>Mujeres CTIAM</title>
 
   <link href="css/plantilla.css" rel="stylesheet">
 

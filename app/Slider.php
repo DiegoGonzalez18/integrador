@@ -12,4 +12,7 @@ class Slider extends Model
     public function  Archivos(){
         return $this->belongsToMany(Archivo::class,'imagen_servicio','imagen_id','servicio_id');
     }
+    public function  Actividades(){
+        return $this->belongsToMany(Slider::class,'imagen_servicio','imagen_id','actividad_id');
+    }
 }

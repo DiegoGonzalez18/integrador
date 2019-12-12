@@ -14,15 +14,14 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/services',function(){
-    return view('services');
-});
-Route::get('/actividades',function(){
-    return view('actividades');
-});
-Route::get('/servicios',function(){
-    return view('servicioInfo');
-});
+Route::get('/services','ServicioController@services');
+Route::get('/prueba/{id}','ServicioController@a');
+Route::get('/servicioes/{id}','ServicioController@servicioes');
+Route::get('/acti/{id}','ActividadController@actividadesp');
+
+Route::get('/actividadess','ActividadController@actividades2');
+
+
 Route::get('/login',function(){
     return view('login');
 });
@@ -36,7 +35,7 @@ Route::group(['middleware'=>['auth']],function(){
 
     Route::get('/admin/categoria','CategoriaController@index');
     Route::post('/admin/categoria/updateCategoria','CategoriaController@update');
-
+    Route::post('/mensaje','MensajeController@store');
 
     Route::get('/admin/slider','SliderController@index');
 Route::post('/admin/slider/registerSlider','SliderController@store');
@@ -95,6 +94,24 @@ Route::post('/a_s','ServicioController@registrarA');
 Route::post('/eli2','ServicioController@destroy2');
 Route::get('/a_s2','ServicioController@index2');
 
+Route::post('/admin/actividad/registrarActividad','ActividadController@store');
+Route::post('actividades','ActividadController@actividades');
+Route::post('act','ActividadController@actualizar');
+Route::post('eliminarActividad','ActividadController@eliminar');
+Route::post('actualizarActividad','ActividadController@actualizarActividad');
+Route::post('acti','ActividadController@acti');
+Route::post('regisIm','ActividadController@registrar');
+Route::get('listado','ActividadController@index');
+Route::post('eliminarActividad','ActividadController@destroy');
+Route::post('a_a','ActividadController@registrarA');
+Route::get('listadito','ActividadController@index2');
+Route::post('destroy','ActividadController@destroy2');
+
+
+
+
+
+
 
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/home', 'HomeController@index')->name('home');
@@ -105,3 +122,4 @@ Route::group(['middleware'=>['guest']],function(){
 
 });
 
+Route::get('/pruebita/{id}', 'ActividadController@a');

@@ -19,7 +19,7 @@
 
     </div>
     </div>
-    @include('contenido.portafolio')
+    @include('contenido.portafolio',compact('actividades','nu'))
 @include('contenido.contact')
 
   <!-- Footer -->

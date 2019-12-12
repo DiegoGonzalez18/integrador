@@ -6,16 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Sistema Ventas Laravel Vue Js- IncanatoIT">
-    <meta name="author" content="Incanatoit.com">
     <meta name="keyword" content="Sistema ventas Laravel Vue Js, Sistema compras Laravel Vue Js">
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="shortcut icon" href="../img/logo.jpg">
     <meta name="csrf-token" content="{{csrf_token()}}">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link href="css/simple-line-icons.min.css" rel="stylesheet">
     <!-- Main styles for this application -->
     <link href="css/style.css" rel="stylesheet">
-    <title>Secretaria General</title>
+    <title>Mujeres CTIAM</title>
     <script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>
 
 
@@ -35,34 +34,35 @@
             padding: 0.5rem 1rem;
             margin-right: 0;
             background-color: #fff;
-            background-image: url("https://ww2.ufps.edu.co/public/imagenes/template/header/logo_ufps.png");
+            background-image: url("img/logo.jpg");
             background-repeat: no-repeat;
             background-position: center center;
-            background-size: 150px auto;
+            background-size: 170px auto;
             border-bottom: 1px solid #c2cfd6;
+            margin-left: 10px !important;
         }
 </style>
 <style>
     .btn-primary{
-        background-color: rgb(128, 0, 23);
-        border-color: rgb(128, 0, 23);
+        background-color: rgba(197, 0,131,1);
+        border-color: rgba(197, 0,131,1);
     }
     .btn-danger{
-       background-color: rgb(128, 0, 23);
-       border-color: rgb(128, 0, 23);
+       background-color: rgba(197, 0,131,1);
+       border-color: rgba(197, 0,131,1);
 
    }
    .btn-warning{
-       background-color: rgb(129, 131, 134);
-       border-color:  rgb(129, 131, 134);
+       background-color: rgba(197, 0,131,1);
+       border-color: rgba(197, 0,131,1);
 
    }
    a{
-      color:  rgb(128, 0, 23);
+      color:  rgba(197, 0,131,1);
    }
    .sidebar .nav-link:hover, .sidebar .navbar .dropdown-toggle:hover, .navbar .sidebar .dropdown-toggle:hover {
        color: #fff;
-       background:  rgb(128, 0, 23);;
+       background: rgba(197, 0,131,1);
    }
    </style>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
@@ -125,7 +125,7 @@
 
 
     <footer class="app-footer">
-        <span><a href="/">Secretaría General -UFPS</a> &copy; 2019</span>
+        <span><a href="/">Mujeres CTIAM</a> &copy; 2019</span>
     </footer>
 
     <!-- Bootstrap and necessary plugins -->

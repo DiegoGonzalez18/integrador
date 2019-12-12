@@ -30,7 +30,7 @@
                     <thead>
                         <tr>
                             <th>Opciones</th>
-                            <th>Titulo del Servicio</th>
+                            <th>Titulo de la Actividad</th>
                             <th>Titulo de la Imagen</th>
 
 
@@ -92,11 +92,11 @@
                     <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
 
                         <div  class="form-group row" v-if="tramites!=null">
-                            <label class="col-md-3 form-control-label" for="text-input">Imagenes</label>
+                            <label class="col-md-3 form-control-label" for="text-input">Actividades</label>
                             <div class="col-md-9">
                         <select class="custom-select" v-model="tramite" >
 
-                                    <option v-for="slider in tramites" :key="slider.id" :value="slider.id"  v-text="slider.titulo"></option>
+                                    <option v-for="slider in tramites" :key="slider.id" :value="slider.id"  v-text="slider.titulos"></option>
 
 
                         </select>
@@ -107,11 +107,11 @@
                             <br>
                             <br>
                              <div  class="form-group row" v-if="archivos!=null">
-                            <label class="col-md-3 form-control-label" for="text-input">Servicios</label>
+                            <label class="col-md-3 form-control-label" for="text-input">Imagenes</label>
                             <div class="col-md-9">
                         <select class="custom-select" v-model="archivo" >
 
-                                    <option v-for="slider in archivos" :key="slider.id" :value="slider.id"  v-text="slider.titulos"></option>
+                                    <option v-for="slider in archivos" :key="slider.id" :value="slider.id"  v-text="slider.titulo"></option>
 
 
                         </select>
@@ -228,7 +228,7 @@ import { VueEditor } from "vue2-editor";
        methods:{
 
            listarSlider(page,buscar){
-               var url="asignar?page="+page + "&buscar="+buscar;
+               var url="listado?page="+page + "&buscar="+buscar;
 
             let me= this;
                axios.get(url)
@@ -258,7 +258,7 @@ import { VueEditor } from "vue2-editor";
   confirmButtonText: 'si, Borralo!'
 }).then((result) => {
   if (result.value) {
-      axios.post('eli',{
+      axios.post('eliminarActividad',{
 
                     'id':idi
                 }).then(function(response){
@@ -290,7 +290,7 @@ import { VueEditor } from "vue2-editor";
                                     let me = this;
 
    console.log(this.tramite);//s=a  t=i
-                                axios.post('registera_t',{
+                                axios.post('regisIm',{
 
 
                                     'id2': this.tramite,
@@ -299,11 +299,11 @@ import { VueEditor } from "vue2-editor";
                                 }).then(function(response){
                                         console.log(response.data);
                                     if(response.data!=1){
-                                        swal.fire('Ya asigno esta Imagen a este Servicio','','error');
+                                        swal.fire('Ya asigno esta imagen en esta actividad','','error');
 
                                     }
                                     else{
-                                          swal.fire('Imagen Asignado','','success');
+                                          swal.fire('Imagen Asignada','','success');
                                            me.listarSlider(1,'');
                                     me.cerrarModal();
                                     }
@@ -349,7 +349,7 @@ import { VueEditor } from "vue2-editor";
         },
          listarTramites(){
              let me=this;
- axios.post('sli').then(function(response){
+ axios.post('acti').then(function(response){
 
 me.tramites=response.data;
 
@@ -361,7 +361,7 @@ me.tramites=response.data;
         },
         listarArchivos(){
              let me=this;
- axios.post('ser').then(function(response){
+ axios.post('sli').then(function(response){
 console.log("aqui")
 me.archivos=response.data;
 console.log(response);

@@ -10,7 +10,7 @@
         <!-- Ejemplo de tabla Listado -->
         <div class="card">
             <div class="card-header">
-                <i class="fa fa-align-justify"></i> Sliders
+                <i class="fa fa-align-justify"></i> Imagenes
                 <button @click="abrirModal('slider','registrar')" type="button" class="btn btn-secondary" >
                     <i class="icon-plus"></i>&nbsp;Nuevo
                 </button>
@@ -84,8 +84,8 @@
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="text-input">Titulo</label>
                             <div class="col-md-9">
-                                <input type="text" v-model="titulo" class="form-control" placeholder="Titulo del Slider" >
-                                <span class="help-block">(*) Ingrese el titulo del slider</span>
+                                <input type="text" v-model="titulo" class="form-control" placeholder="Titulo de la Imagen" >
+                                <span class="help-block">(*) Ingrese el titulo</span>
                             </div>
                         </div>
 
@@ -229,7 +229,7 @@ const axios= require('axios');
                         console.log(response.data);
                           swal.fire(
       'Borrado!',
-      'Tu slider ha sido borrado.',
+      'Tu Imagen ha sido borrado.',
       'success'
     );
 
@@ -277,7 +277,7 @@ const axios= require('axios');
                                     if(response.data==-1){
                                         swal.fire('revise el tamaño de la imagen debe ser de ancho 1500 y alto 500','','error');
                                     }else {
-                                     swal.fire('slider registrado','','success');
+                                     swal.fire('Imagen registrado','','success');
                                     me.listarSlider(1,'');
                                     me.cerrarModal();
                                     }
@@ -303,7 +303,7 @@ const axios= require('axios');
                                     }else  if(response.data==-5){
                                         swal.fire('Ya hay 5 Sliders activos','','error');
                                     }else{
-                         swal.fire('slider Actualizado','','success');
+                         swal.fire('Imagen Actualizado','','success');
                                     me.listarSlider(1,'');
                                     me.cerrarModal();}
                 }).catch(function(error){
@@ -321,7 +321,7 @@ const axios= require('axios');
                                             case 'registrar':
                                                 {
                                                     this.modal=1;
-                                                    this.tituloModal='Registrar Slider';
+                                                    this.tituloModal='Registrar Imagen';
                                                     this.titulo='';
                                                     this.url='';
                                                     this.boton=1;
@@ -330,7 +330,7 @@ const axios= require('axios');
                                             case 'actualizar':
                                                 {
                                                     this.modal=1;
-                                                    this.tituloModal='Actualizar slider';
+                                                    this.tituloModal='Actualizar Imagen';
                                                     this.boton=2;
                                                     this.titulo= data['titulo'];
                                                     this.imagen=data['url'];
